@@ -1,0 +1,10 @@
+/*.js
+**/*.js
+**/node_modules/*
+**/out/*
+**/.next/*
+/build
+/src/react-app-env.d.ts
+/src/reportWebVitals.ts
+
+
