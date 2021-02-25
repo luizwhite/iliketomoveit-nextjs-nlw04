@@ -9,6 +9,7 @@ export default createGlobalStyle`
     --text-highlight: #b3b9ff;
     --title: #2e384d;
     --red: #e83f5b;
+    --red-dark: #b83148;
     --green: #4cd62b;
     --blue: #5965e0;
     --blue-dark: #4953b8;

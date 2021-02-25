@@ -22,6 +22,7 @@
   },
   "plugins": ["@typescript-eslint", "import", "react-hooks"],
   "rules": {
+    "no-new": "warn",
     "no-use-before-define": "off",
     "react/react-in-jsx-scope": "off",
     "react/display-name": "off",

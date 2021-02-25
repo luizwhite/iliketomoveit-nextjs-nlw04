@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -41,7 +41,7 @@ export const Container = styled.div`
   }
 `;
 
-export const CountdownButton = styled.button`
+export const CountdownButton = styled.button<{ countdownStyle?: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,14 +51,53 @@ export const CountdownButton = styled.button`
   height: 5rem;
   border-radius: 5px;
 
-  background-color: var(--blue);
   color: var(--white);
   font-size: 1.25rem;
   font-weight: 600;
 
   transition: background-color 0.2s;
 
-  &:hover {
-    background-color: var(--blue-dark);
+  svg {
+    margin-left: 1rem;
   }
+
+  &[disabled] {
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid var(--green);
+
+    background-color: var(--white);
+    color: var(--text-default);
+    cursor: not-allowed;
+  }
+
+  ${({ countdownStyle: styledCountdown }) =>
+    styledCountdown &&
+    css`
+      &:hover {
+        color: var(--white);
+      }
+
+      ${({ countdownStyle }: { countdownStyle?: string }) =>
+        countdownStyle === 'start'
+          ? css`
+              background-color: var(--blue);
+              color: var(--white);
+
+              &:hover {
+                background-color: var(--blue-dark);
+              }
+            `
+          : css`
+              background-color: var(--white);
+              color: var(--text-default);
+
+              &:hover {
+                background-color: var(--red);
+
+                svg path {
+                  fill: var(--white);
+                }
+              }
+            `}
+    `}
 `;

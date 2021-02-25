@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
+import { useChallenges } from '../../hooks/challenges';
 
 import { Header, ProgressBar, CurrentExperience } from './styles';
 
 const ExperienceBar: React.FC = () => {
-  const [xp, setXp] = useState(60);
+  const { currentXP, xpToNextLevel } = useChallenges();
+
+  const xpPercentual = useMemo(
+    () => Math.floor((currentXP / xpToNextLevel) * 100),
+    [currentXP, xpToNextLevel],
+  );
 
   return (
     <Header>
       <span>0 xp</span>
       <div>
-        <ProgressBar {...{ xp }} />
-        <CurrentExperience {...{ xp }}>
-          <span>300 xp</span>
+        <ProgressBar {...{ xpPercentual }} />
+        <CurrentExperience {...{ xpPercentual }}>
+          <span>{`${currentXP} xp`}</span>
         </CurrentExperience>
       </div>
-      <span>600 xp</span>
+      <span>{`${xpToNextLevel} xp`}</span>
     </Header>
   );
 };

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 interface ProgressBarProps {
-  xp: number;
+  xpPercentual: number;
 }
 
 interface CurrentExperienceProps {
-  xp: number;
+  xpPercentual: number;
 }
 
 export const Container = styled.div``;
@@ -37,12 +37,12 @@ export const Header = styled.header`
 `;
 
 export const ProgressBar = styled.div<ProgressBarProps>`
-  width: ${({ xp }) => xp}%;
+  width: ${({ xpPercentual }) => xpPercentual}%;
 `;
 
 export const CurrentExperience = styled.span<CurrentExperienceProps>`
   span {
-    left: ${({ xp }) => xp}%;
+    left: ${({ xpPercentual }) => xpPercentual}%;
     position: absolute;
     transform: translateX(-50%);
   }

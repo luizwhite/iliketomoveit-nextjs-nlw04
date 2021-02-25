@@ -1,12 +1,25 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { useChallenges } from '../../hooks/challenges';
+import { useCountdown } from '../../hooks/countdown';
+
 import { Container, CountdownButton } from './styles';
 
-const Countdown: React.FC = () => {
-  const [time, setTime] = useState(25 * 60);
-  const [active, setActive] = useState(false);
+import CheckCircle from '../../assets/check_circle.svg';
+import AbortX from '../../assets/abort_x.svg';
+import PlayArrow from '../../assets/play_arrow.svg';
 
-  const minutes = useMemo(() => Math.floor(time / 60), [time]);
-  const seconds = useMemo(() => time % 60, [time]);
+const Countdown: React.FC = () => {
+  const {
+    minutes,
+    seconds,
+    hasFinished,
+    isActive,
+    startCountdown,
+    resetCountdown,
+  } = useCountdown();
+
+  const { resetChallenge } = useChallenges();
 
   const [minuteLeft, minuteRight] = useMemo(
     () => String(minutes).padStart(2, '0').split(''),
@@ -18,16 +31,17 @@ const Countdown: React.FC = () => {
     [seconds],
   );
 
-  const startCountdown = useCallback(() => {
-    setActive(true);
-  }, []);
+  const handleStartCountdown = useCallback(() => {
+    startCountdown();
 
-  useEffect(() => {
-    if (active && time > 0)
-      setTimeout(() => {
-        setTime(time - 1);
-      }, 1000);
-  }, [active, time]);
+    resetChallenge();
+  }, [resetChallenge, startCountdown]);
+
+  const handleAbortCountdown = useCallback(() => {
+    resetCountdown();
+
+    resetChallenge();
+  }, [resetChallenge, resetCountdown]);
 
   return (
     <div>
@@ -43,9 +57,34 @@ const Countdown: React.FC = () => {
         </div>
       </Container>
 
-      <CountdownButton type="button" onClick={startCountdown}>
-        Iniciar um ciclo
-      </CountdownButton>
+      {hasFinished ? (
+        <CountdownButton disabled>
+          Ciclo encerrado
+          <CheckCircle />
+        </CountdownButton>
+      ) : (
+        <>
+          {!isActive ? (
+            <CountdownButton
+              type="button"
+              countdownStyle="start"
+              onClick={handleStartCountdown}
+            >
+              Iniciar um ciclo
+              <PlayArrow />
+            </CountdownButton>
+          ) : (
+            <CountdownButton
+              type="button"
+              countdownStyle="stop"
+              onClick={handleAbortCountdown}
+            >
+              Abandonar o ciclo
+              <AbortX />
+            </CountdownButton>
+          )}
+        </>
+      )}
     </div>
   );
 };

@@ -1,10 +1,15 @@
 import { AppProps } from 'next/app';
+
+import { ChallengesProvider } from '../hooks/challenges';
+
 import GlobalStyle from '../styles/globals';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
-      <Component {...pageProps} />
+      <ChallengesProvider>
+        <Component {...pageProps} />
+      </ChallengesProvider>
       <GlobalStyle />
     </>
   );
