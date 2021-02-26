@@ -1,4 +1,8 @@
 import Head from 'next/head';
+import { GetServerSideProps } from 'next';
+
+import { ReactNode } from 'react';
+import { ChallengesProvider } from '../hooks/challenges';
 
 import ChallengeBox from '../components/ChallengeBox';
 import CompletedChallenges from '../components/CompletedChallenges';
@@ -9,29 +13,55 @@ import { CountdownProvider } from '../hooks/countdown';
 
 import Container from './styles';
 
-const Home: React.FC = () => {
+interface HomeProps {
+  level: number;
+  currentXP: number;
+  challengesCompleted: number;
+  children?: ReactNode;
+}
+
+const Home: React.FC<HomeProps> = ({
+  level,
+  currentXP,
+  challengesCompleted,
+}) => {
   return (
-    <Container>
-      <Head>
-        <title>Início | il.to.move.it</title>
-      </Head>
+    <ChallengesProvider {...{ level, currentXP, challengesCompleted }}>
+      <Container>
+        <Head>
+          <title>Início | il.to.move.it</title>
+        </Head>
 
-      <ExperienceBar />
+        <ExperienceBar />
 
-      <CountdownProvider>
-        <section>
-          <div>
-            <Profile />
-            <CompletedChallenges />
-            <Countdown />
-          </div>
-          <div>
-            <ChallengeBox />
-          </div>
-        </section>
-      </CountdownProvider>
-    </Container>
+        <CountdownProvider>
+          <section>
+            <div>
+              <Profile />
+              <CompletedChallenges />
+              <Countdown />
+            </div>
+            <div>
+              <ChallengeBox />
+            </div>
+          </section>
+        </CountdownProvider>
+      </Container>
+    </ChallengesProvider>
   );
 };
 
 export default Home;
+
+// executa no servidor node
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { level, currentXP, challengesCompleted } = ctx.req.cookies;
+
+  return {
+    props: {
+      level: Number(level),
+      currentXP: Number(currentXP),
+      challengesCompleted: Number(challengesCompleted),
+    },
+  };
+};

@@ -1,16 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 📖 About
+ILikeToMoveIt é uma aplicação (em sua versão 1.0) e possui uma simples interface de desafios, em forma como exercícios físicos e de relaxamento, que, ao serem completados, fornecem experiência em sistema simples de level-up.
 
-## Learn More
+Foi desenvolvido durante a semana **NLW04**, na trilha **ReactJS** da **Rocketseat Education**, em que foi visto e desenvolvido:
+Components, Context API, Modal e Notification API, em um ambiente com Next.js e Typescript, caracterizado por SSR e SSG
 
-To learn more about Next.js, take a look at the following resources:
+## 🔨 New Features
+Além do conteúdo passado na semana (move.it 1.0), este projeto (em sua versão 1.0) foi incrementado com:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+→ Styled Components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+→ React Modal Library
 
-## Deploy on Vercel
+→ Mais estilização nos botões
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+→ Custom hooks, e utilização do useCallback e useMemo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 🚀 Technologies
+→ [**Next.JS**](https://nextjs.org/)
+
+→ [**ReactJS**](https://reactjs.org/)
+
+→ [**TypeScript**](https://www.typescriptlang.org/)
+
+## 🖌️ Layout de Referência
+→ [**move.it 2.0**](https://www.figma.com/file/vRbW1u0CEZuG2zE6bU5qLg/Move.it-2.0/duplicate)
+
+→ [**move.it 1.0**](https://www.figma.com/file/ge20pu3ofMOKoliUyKx1Nl/Move.it-1.0/duplicate)
+
+-----
+## My Repo
+GitHub: [`https://github.com/luizwhite/iliketomoveit-nextjs-nlw04`](https://github.com/luizwhite/iliketomoveit-nextjs-nlw04)
+
+## Deploy
+Vercel: [`https://iliketomoveit-two.vercel.app`](https://iliketomoveit-two.vercel.app)
+
+## Usage
+```bash
+yarn
+
+yarn dev
+```
