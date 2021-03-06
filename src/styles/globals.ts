@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
-  :root {
+  /* :root {
     --bg-default: #f2f3f5;
     --text-default: #666;
     --white: #fff;
@@ -13,6 +13,21 @@ export default createGlobalStyle`
     --green: #4cd62b;
     --blue: #5965e0;
     --blue-dark: #4953b8;
+    --blue-twitter: #2aa9e0;
+  } */
+  :root {
+    --bg-default: #f2f3f5;
+    --text-default: #666;
+    --white: #fff;
+    --gray-line: #dcdde0;
+    --text-highlight: #b3b9ff;
+    --title: #2e384d;
+    --red: #e83f5b;
+    --red-dark: #b83148;
+    --green: #4cd62b;
+    --blue-light: #f7e1d4;
+    --blue: #e08a59;
+    --blue-dark: #b16d46;
     --blue-twitter: #2aa9e0;
   }
 

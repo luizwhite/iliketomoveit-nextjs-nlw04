@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { Container } from './styles';
-import Modal from '../Modal';
-// eslint-disable-next-line import/no-cycle
-// import { useChallenges } from '../../hooks/challenges';
+import { StyledModal, Container, TwitterButton } from './styles';
+
+import TwitterIcon from '../../assets/twitter.svg';
 
 interface IModalProps {
   level: number;
@@ -17,7 +16,7 @@ const ModalLevelUp: React.FC<IModalProps> = ({
   closeModal,
 }) => {
   return (
-    <Modal isOpen={modalIsOpen} closeModal={closeModal}>
+    <StyledModal isOpen={modalIsOpen} closeModal={closeModal}>
       <Container>
         <header>{level}</header>
 
@@ -28,7 +27,11 @@ const ModalLevelUp: React.FC<IModalProps> = ({
           <img src="/icons/close.svg" alt="Fechar modal" />
         </button>
       </Container>
-    </Modal>
+      <TwitterButton>
+        Compartilhar no Twitter
+        <TwitterIcon />
+      </TwitterButton>
+    </StyledModal>
   );
 };
 

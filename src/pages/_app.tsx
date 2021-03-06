@@ -1,13 +1,15 @@
 import { AppProps } from 'next/app';
+import { Provider as NextAuthProvider } from 'next-auth/client';
 
 import GlobalStyle from '../styles/globals';
 
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
-      {/* <ChallengesProvider> */}
-      <Component {...pageProps} />
-      {/* </ChallengesProvider> */}
+      <NextAuthProvider session={pageProps.session}>
+        <Component {...pageProps} />
+      </NextAuthProvider>
       <GlobalStyle />
     </>
   );

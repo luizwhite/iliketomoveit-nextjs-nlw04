@@ -9,6 +9,7 @@ import {
 import { useChallenges } from './challenges';
 
 interface CountdownContextData {
+  time: number;
   minutes: number;
   seconds: number;
   hasFinished: boolean;
@@ -22,7 +23,7 @@ let countdownTimeout: NodeJS.Timeout;
 const CountdownContext = createContext({} as CountdownContextData);
 
 const CountdownProvider: React.FC = ({ children }) => {
-  const [time, setTime] = useState(25 * 60);
+  const [time, setTime] = useState(5 * 60);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
@@ -38,7 +39,7 @@ const CountdownProvider: React.FC = ({ children }) => {
   const resetCountdown = useCallback(() => {
     clearTimeout(countdownTimeout);
     setIsActive(false);
-    setTime(25 * 60);
+    setTime(5 * 60);
 
     setHasFinished(false);
   }, []);
@@ -59,6 +60,7 @@ const CountdownProvider: React.FC = ({ children }) => {
   return (
     <CountdownContext.Provider
       value={{
+        time,
         minutes,
         seconds,
         hasFinished,

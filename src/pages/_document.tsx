@@ -7,6 +7,7 @@ import Document, {
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
@@ -38,7 +39,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="shortcut icon" href="favicon.png" type="image/png" />
+          <link rel="shortcut icon" href="favicon_2.png" type="image/png" />
 
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link

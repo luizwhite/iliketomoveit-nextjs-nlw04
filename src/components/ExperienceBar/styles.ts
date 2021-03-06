@@ -27,17 +27,15 @@ export const Header = styled.header`
     background-color: var(--gray-line);
 
     position: relative;
-
-    > div {
-      height: 4px;
-      border-radius: 4px;
-      background-color: var(--green);
-    }
   }
 `;
 
 export const ProgressBar = styled.div<ProgressBarProps>`
   width: ${({ xpPercentual }) => xpPercentual}%;
+  height: 4px;
+
+  border-radius: 4px;
+  background-color: var(--green);
 `;
 
 export const CurrentExperience = styled.span<CurrentExperienceProps>`

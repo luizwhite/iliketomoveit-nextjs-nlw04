@@ -2,13 +2,27 @@ import React, { useState, useEffect, ReactNode } from 'react';
 
 import ReactModal from 'react-modal';
 
+interface OverlayStyleProps {
+  display?: string;
+  justifyContent?: string;
+  alignItems?: string;
+  backgroundColor?: string;
+}
 interface IModalProps {
   children: ReactNode;
   isOpen: boolean;
+  borderRadius: number;
+  overlayStyle: OverlayStyleProps;
   closeModal: () => void;
 }
 
-const Modal: React.FC<IModalProps> = ({ children, isOpen, closeModal }) => {
+const Modal: React.FC<IModalProps> = ({
+  children,
+  isOpen,
+  borderRadius,
+  overlayStyle,
+  closeModal,
+}) => {
   const [modalIsOpen, setModalStatus] = useState(isOpen);
 
   useEffect(() => {
@@ -32,16 +46,10 @@ const Modal: React.FC<IModalProps> = ({ children, isOpen, closeModal }) => {
           // marginRight: '-50%',
           background: '#F0F0F5',
           color: '#000000',
-          borderRadius: '8px',
+          borderRadius: `${borderRadius}px`,
           border: 'none',
         },
-        // overlay: { backgroundColor: '#121214e6' },
-        overlay: {
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(242, 243, 245, 0.8',
-        },
+        overlay: overlayStyle,
       }}
     >
       {children}

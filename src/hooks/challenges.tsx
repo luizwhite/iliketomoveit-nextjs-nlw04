@@ -7,7 +7,8 @@ import {
   useMemo,
   useState,
 } from 'react';
-import Cookies from 'js-cookie';
+import axios from 'axios';
+// import Cookies from 'js-cookie';
 
 import ModalLevelUp from '../components/ModalLevelUp';
 
@@ -33,6 +34,7 @@ interface ChallengesContextData {
 }
 
 interface ChallengesProviderProps {
+  username: string;
   level: number;
   currentXP: number;
   challengesCompleted: number;
@@ -45,10 +47,10 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
   children,
   ...data
 }) => {
-  const [level, setLevel] = useState(data.level || 1);
-  const [currentXP, setCurrentXP] = useState(data.currentXP || 0);
+  const [level, setLevel] = useState(data.level);
+  const [currentXP, setCurrentXP] = useState(data.currentXP);
   const [challengesCompleted, setChallengesCompleted] = useState(
-    data.challengesCompleted || 0,
+    data.challengesCompleted,
   );
   const [challengeReady, setChallengeReady] = useState(false);
   const [isLeveledUp, setIsLeveledUp] = useState(false);
@@ -62,10 +64,28 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
   }, []);
 
   useEffect(() => {
-    Cookies.set('level', String(level));
-    Cookies.set('currentXP', String(currentXP));
-    Cookies.set('challengesCompleted', String(challengesCompleted));
-  }, [level, currentXP, challengesCompleted]);
+    /**
+     * Cookies.set('level', String(level));
+     * Cookies.set('currentXP', String(currentXP));
+     * Cookies.set('challengesCompleted', String(challengesCompleted));
+     */
+
+    const updateData = async () => {
+      const { username } = data;
+
+      try {
+        await axios.post('/api/challenges', {
+          username,
+          level,
+          currentXP,
+          challengesCompleted,
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    updateData();
+  }, [level, currentXP, challengesCompleted, data]);
 
   const xpToNextLevel = useMemo(() => ((level + 1) * 4) ** 2, [level]);
 
@@ -89,6 +109,7 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
     new Audio('/notification.mp3').play();
 
     if (Notification.permission === 'granted')
+      // eslint-disable-next-line no-new
       new Notification('Novo desafio 🎉', {
         body: `valendo ${challenge.amount}xp`,
       });

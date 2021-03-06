@@ -1,11 +1,22 @@
 import styled from 'styled-components';
 
+import Modal from '../Modal';
+
+export const StyledModal = styled(Modal).attrs({
+  borderRadius: 14,
+  overlayStyle: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(242, 243, 245, 0.8',
+  },
+})``;
+
 export const Container = styled.div`
   padding: 2rem 3rem;
   width: 100%;
   max-width: 400px;
 
-  border-radius: 5px;
   background-color: var(--white);
 
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
@@ -41,4 +52,26 @@ export const Container = styled.div`
     top: 0.5rem;
   }
 `;
-export const Container2 = styled.div``;
+
+export const TwitterButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 100%;
+
+  border-top: 1px solid var(--gray-line);
+  background-color: #f5fcff;
+
+  color: var(--blue-twitter);
+  font-weight: 600;
+  font-size: 18px;
+
+  &:hover {
+    filter: saturate(1.8);
+  }
+
+  svg {
+    margin-left: 1rem;
+  }
+`;

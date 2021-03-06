@@ -1,5 +1,10 @@
 import styled, { css } from 'styled-components';
 
+interface CountdownButtonProps {
+  countdownStyle?: string;
+  timeLeftPercent?: number;
+}
+
 export const Container = styled.div`
   display: flex;
   align-items: center;
@@ -41,7 +46,7 @@ export const Container = styled.div`
   }
 `;
 
-export const CountdownButton = styled.button<{ countdownStyle?: string }>`
+export const CountdownButton = styled.button<CountdownButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,6 +61,8 @@ export const CountdownButton = styled.button<{ countdownStyle?: string }>`
   font-weight: 600;
 
   transition: background-color 0.2s;
+  position: relative;
+  overflow: hidden;
 
   svg {
     margin-left: 1rem;
@@ -77,7 +84,7 @@ export const CountdownButton = styled.button<{ countdownStyle?: string }>`
         color: var(--white);
       }
 
-      ${({ countdownStyle }: { countdownStyle?: string }) =>
+      ${({ countdownStyle, timeLeftPercent }: CountdownButtonProps) =>
         countdownStyle === 'start'
           ? css`
               background-color: var(--blue);
@@ -88,6 +95,8 @@ export const CountdownButton = styled.button<{ countdownStyle?: string }>`
               }
             `
           : css`
+              padding: 5px 0;
+
               background-color: var(--white);
               color: var(--text-default);
 
@@ -97,6 +106,40 @@ export const CountdownButton = styled.button<{ countdownStyle?: string }>`
                 svg path {
                   fill: var(--white);
                 }
+              }
+
+              > div {
+                position: absolute;
+
+                width: 100%;
+                background-color: var(--gray-line);
+                height: 5px;
+                bottom: 0;
+                right: 0;
+                left: 0;
+              }
+
+              &::after {
+                content: '';
+                position: absolute;
+
+                height: 5px;
+                bottom: 0;
+                right: 0;
+                left: 0;
+
+                width: ${timeLeftPercent}%;
+                background-color: var(--green);
+
+                transition: width 1s linear;
+
+                /* background: linear-gradient(
+                  to right,
+                  var(--green) 0%,
+                  var(--green) ${timeLeftPercent}%,
+                  var(--gray-line) ${timeLeftPercent}%,
+                  var(--gray-line) 100%
+                ); */
               }
             `}
     `}

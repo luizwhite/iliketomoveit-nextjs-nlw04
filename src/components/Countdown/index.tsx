@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { useChallenges } from '../../hooks/challenges';
 import { useCountdown } from '../../hooks/countdown';
@@ -11,6 +11,7 @@ import PlayArrow from '../../assets/play_arrow.svg';
 
 const Countdown: React.FC = () => {
   const {
+    time,
     minutes,
     seconds,
     hasFinished,
@@ -18,6 +19,8 @@ const Countdown: React.FC = () => {
     startCountdown,
     resetCountdown,
   } = useCountdown();
+
+  const [challengeTime] = useState(time);
 
   const { resetChallenge } = useChallenges();
 
@@ -29,6 +32,11 @@ const Countdown: React.FC = () => {
   const [secondLeft, secondRight] = useMemo(
     () => String(seconds).padStart(2, '0').split(''),
     [seconds],
+  );
+
+  const timeLeftPercent = useMemo(
+    () => Math.floor((1 - time / challengeTime) * 10000) / 100,
+    [challengeTime, time],
   );
 
   const handleStartCountdown = useCallback(() => {
@@ -78,7 +86,9 @@ const Countdown: React.FC = () => {
               type="button"
               countdownStyle="stop"
               onClick={handleAbortCountdown}
+              timeLeftPercent={timeLeftPercent}
             >
+              <div />
               Abandonar o ciclo
               <AbortX />
             </CountdownButton>

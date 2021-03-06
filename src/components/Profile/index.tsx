@@ -1,15 +1,20 @@
+import { useSession } from 'next-auth/client';
+
 import { useChallenges } from '../../hooks/challenges';
 import Container from './styles';
 
 const Profile: React.FC = () => {
   const { level } = useChallenges();
+  const [session] = useSession();
 
   return (
     <Container>
-      <img src="https://github.com/luizwhite.png" alt="Luiz Augusto" />
+      {session?.user.image && (
+        <img src={session.user.image} alt="Luiz Augusto" />
+      )}
 
       <div>
-        <strong>Luiz Augusto</strong>
+        <strong>{session?.user.name}</strong>
         <p>
           <img src="icons/level.svg" alt="Level" />
           {`Level ${level}`}
