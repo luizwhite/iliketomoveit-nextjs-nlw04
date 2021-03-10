@@ -34,6 +34,7 @@ export const Container = styled.div`
   strong {
     font-size: 2.25rem;
     color: var(--title);
+    font-weight: 600;
   }
 
   p {
@@ -53,7 +54,7 @@ export const Container = styled.div`
   }
 `;
 
-export const TwitterButton = styled.button`
+export const TwitterAnchor = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;

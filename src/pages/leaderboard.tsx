@@ -130,21 +130,23 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ session }) => {
                   <td />
                 </tr>
               )}
-              {[...Array(7 - users.length)].map((_value, index) => (
-                <tr key={`dumb_${index + 1}`}>
-                  <td />
-                  <td>
-                    <ProfileInfoContainer>
-                      <div>
-                        <strong />
-                        <div />
-                      </div>
-                    </ProfileInfoContainer>
-                  </td>
-                  <td />
-                  <td />
-                </tr>
-              ))}
+              {[...Array(7 - (users.length > 7 ? 7 : users.length))].map(
+                (_value, index) => (
+                  <tr key={`dumb_${index + 1}`}>
+                    <td />
+                    <td>
+                      <ProfileInfoContainer>
+                        <div>
+                          <strong />
+                          <div />
+                        </div>
+                      </ProfileInfoContainer>
+                    </td>
+                    <td />
+                    <td />
+                  </tr>
+                ),
+              )}
             </tbody>
           </table>
         </Container>

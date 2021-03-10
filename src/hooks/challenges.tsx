@@ -47,6 +47,7 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
   children,
   ...data
 }) => {
+  const [twitterURL, setTwitterURL] = useState('');
   const [level, setLevel] = useState(data.level);
   const [currentXP, setCurrentXP] = useState(data.currentXP);
   const [challengesCompleted, setChallengesCompleted] = useState(
@@ -58,34 +59,6 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
     activeChallengeData,
     setActiveChallengeData,
   ] = useState<Challenge | null>(null);
-
-  useEffect(() => {
-    Notification.requestPermission();
-  }, []);
-
-  useEffect(() => {
-    /**
-     * Cookies.set('level', String(level));
-     * Cookies.set('currentXP', String(currentXP));
-     * Cookies.set('challengesCompleted', String(challengesCompleted));
-     */
-
-    const updateData = async () => {
-      const { username } = data;
-
-      try {
-        await axios.post('/api/challenges', {
-          username,
-          level,
-          currentXP,
-          challengesCompleted,
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    updateData();
-  }, [level, currentXP, challengesCompleted, data]);
 
   const xpToNextLevel = useMemo(() => ((level + 1) * 4) ** 2, [level]);
 
@@ -142,6 +115,54 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
     xpToNextLevel,
   ]);
 
+  const getThumbURIEncoded = useCallback(async () => {
+    const { data: thumbURIEncoded } = await axios.get<string>(
+      `/api/thumbnail?share_to_twitter_URI=true&level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}`,
+    );
+
+    setTwitterURL(`https://twitter.com/intent/tweet?url=${thumbURIEncoded}`);
+  }, [challengesCompleted, currentXP, level]);
+
+  // const shareToTwitter = useCallback(async () => {
+  //   const { data: thumbURIEncoded } = await axios.get<string>(
+  //     `/api/thumbnail?share_to_twitter_URI=true&level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}`,
+  //   );
+
+  //   router.push(`https://twitter.com/intent/tweet?url=${thumbURIEncoded}`);
+  // }, [challengesCompleted, currentXP, level, router]);
+
+  useEffect(() => {
+    Notification.requestPermission();
+  }, []);
+
+  useEffect(() => {
+    getThumbURIEncoded();
+  }, [getThumbURIEncoded]);
+
+  useEffect(() => {
+    /**
+     * Cookies.set('level', String(level));
+     * Cookies.set('currentXP', String(currentXP));
+     * Cookies.set('challengesCompleted', String(challengesCompleted));
+     */
+
+    const updateData = async () => {
+      const { username } = data;
+
+      try {
+        await axios.post('/api/challenges', {
+          username,
+          level,
+          currentXP,
+          challengesCompleted,
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    updateData();
+  }, [level, currentXP, challengesCompleted, data]);
+
   return (
     <ChallengesContext.Provider
       value={{
@@ -162,6 +183,7 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
         level={level}
         modalIsOpen={isLeveledUp}
         closeModal={closeLevelUpModal}
+        shareToTwitterURL={twitterURL}
       />
     </ChallengesContext.Provider>
   );

@@ -23,7 +23,7 @@ let countdownTimeout: NodeJS.Timeout;
 const CountdownContext = createContext({} as CountdownContextData);
 
 const CountdownProvider: React.FC = ({ children }) => {
-  const [time, setTime] = useState(5 * 60);
+  const [time, setTime] = useState(2 * 60);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
@@ -39,7 +39,7 @@ const CountdownProvider: React.FC = ({ children }) => {
   const resetCountdown = useCallback(() => {
     clearTimeout(countdownTimeout);
     setIsActive(false);
-    setTime(5 * 60);
+    setTime(2 * 60);
 
     setHasFinished(false);
   }, []);

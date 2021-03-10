@@ -66,7 +66,9 @@ export default NextAuth({
         };
 
         const db = await connectToMongoDatabase(process.env.MONGODB_URI);
-        const collection = db.collection('userUsers');
+        const collection = db.collection(
+          process.env.NEXTAUTH_COLLECTION || 'userUsers',
+        );
 
         await collection.updateOne(
           { _id: ObjectId(user.id) },

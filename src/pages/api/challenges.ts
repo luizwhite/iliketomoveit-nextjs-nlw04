@@ -42,7 +42,9 @@ export default async (
 ): Promise<void> => {
   const db = await connectToMongoDatabase(process.env.MONGODB_URI || 'default');
 
-  const collection: Collection<CollectionSchema> = db.collection('userUsers');
+  const collection: Collection<CollectionSchema> = db.collection(
+    process.env.NEXTAUTH_COLLECTION || 'userUsers',
+  );
 
   if (request.method === 'POST') {
     const { username, level, currentXP, challengesCompleted } = request.body;
@@ -84,10 +86,13 @@ export default async (
 
     if (request.query.users === 'all') {
       mongoResponse = await new Promise((resolve, reject) => {
-        collection.find().toArray((err, result) => {
-          if (err) reject(err);
-          else resolve(result);
-        });
+        collection
+          .find()
+          .sort('level', -1)
+          .toArray((err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+          });
       });
     } else if (request.query.users) {
       let userFound = {} as CollectionSchema | null;

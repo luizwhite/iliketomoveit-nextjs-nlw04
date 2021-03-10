@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { StyledModal, Container, TwitterButton } from './styles';
+import { StyledModal, Container, TwitterAnchor } from './styles';
 
 import TwitterIcon from '../../assets/twitter.svg';
 
 interface IModalProps {
   level: number;
   modalIsOpen: boolean;
+  shareToTwitterURL: string;
   closeModal: () => void;
 }
 
@@ -14,6 +15,7 @@ const ModalLevelUp: React.FC<IModalProps> = ({
   level,
   modalIsOpen,
   closeModal,
+  shareToTwitterURL,
 }) => {
   return (
     <StyledModal isOpen={modalIsOpen} closeModal={closeModal}>
@@ -27,10 +29,10 @@ const ModalLevelUp: React.FC<IModalProps> = ({
           <img src="/icons/close.svg" alt="Fechar modal" />
         </button>
       </Container>
-      <TwitterButton>
+      <TwitterAnchor href={shareToTwitterURL} target="_blank">
         Compartilhar no Twitter
         <TwitterIcon />
-      </TwitterButton>
+      </TwitterAnchor>
     </StyledModal>
   );
 };
