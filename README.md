@@ -21,9 +21,9 @@ Além do conteúdo passado na semana (move.it 1.0), este projeto foi incrementad
 
 → Leaderboard
 
-→ Responsividade - 🚧 em desenvolvimento 🚧
+→ Compartilhar level no Twitter (thumb generator)
 
-→ Compartilhar level no Twitter (imagem é gerada no momento do clique) - 🚧 em desenvolvimento 🚧
+→ Responsividade - 🚧 em desenvolvimento 🚧
 
 ## 🚀 Tecnologias e Ferramentas
 → [**Next.JS**](https://nextjs.org/)

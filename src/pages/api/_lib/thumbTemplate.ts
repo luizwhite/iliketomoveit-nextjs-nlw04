@@ -101,16 +101,6 @@ export default function getThumbnailTemplate(
           color: var(--text-default);
         }
 
-        div.modal-level-up button {
-          border: 0;
-          font-size: 0;
-
-          background-color: transparent;
-          position: absolute;
-          right: 0.5rem;
-          top: 0.5rem;
-        }
-
         div.info-wrapper {
           display: flex;
           align-items: center;

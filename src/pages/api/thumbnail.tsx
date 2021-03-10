@@ -1,12 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getScreenshot } from './_lib/chromium';
-import getThumbnailTemplate from './_lib/thumbTemplate';
-import getMetaTemplate from './_lib/thumbMetaTemplate';
-/*
 import ReactDOMServer from 'react-dom/server';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
-import ModalLevelUp from '../../components/ModalLevelUp';
- */
+import { ServerStyleSheet } from 'styled-components';
+
+import { getScreenshot } from './_lib/chromium';
+import getMetaTemplate from './_lib/thumbMetaTemplate';
+// import getThumbnailTemplate from './_lib/thumbTemplate';
+import getThumbnailHTMLTemplate from './_lib/thumbHTMLTemplate';
+
+import ThumbnailComponent from '../../components/ThumbnailComponent';
+import GlobalStyle from '../../styles/globals';
+
 const isDev = !process.env.AWS_REGION;
 
 interface GenericStringObject {
@@ -18,7 +21,7 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
-  /* const sheet = new ServerStyleSheet(); */
+  const sheet = new ServerStyleSheet();
 
   try {
     const {
@@ -44,31 +47,24 @@ export default async (
       throw new Error('Challenges completed is required');
     if (!currentXP) throw new Error('Current XP is required');
 
-    const html = getThumbnailTemplate(level, challengesCompleted, currentXP);
-    /* const html = ReactDOMServer.renderToString(
-      <ModalLevelUp level={Number(level)} modalIsOpen closeModal={() => {}} />,
-      );
-      const styleTags = sheet.getStyleTags(); */
+    /* const html = getThumbnailTemplate(level, challengesCompleted, currentXP); */
+    let html = ReactDOMServer.renderToString(
+      sheet.collectStyles(
+        <>
+          <ThumbnailComponent {...{ level, challengesCompleted, currentXP }} />
+          <GlobalStyle />
+        </>,
+      ),
+    );
+    const styleTags = sheet.getStyleTags();
+    sheet.seal();
+    html = getThumbnailHTMLTemplate(styleTags, html);
 
+    /* if (layout === 'true') return res.end(html); */
     if (layout === 'true') return res.end(html);
 
     if (image === 'true') {
       const file = await getScreenshot(html, isDev);
-      /* const file = await getScreenshot(
-        `
-          <head>
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Level ${level} alcançado!" />
-            <meta
-            name="twitter:image"
-            content=${process.env.NEXTAUTH_URL}/api/thumbnail.png?level=${level}
-            />
-            ${styleTags}
-          </head>
-          ${html}
-        `,
-        isDev,
-      ); */
 
       res.setHeader('Content-Type', 'image/png');
       res.setHeader(
@@ -85,10 +81,8 @@ export default async (
     return res.end(htmlMeta);
   } catch (err) {
     console.error(err);
+    sheet.seal();
 
     return res.status(500).send('Internal server error');
   }
-  /* finally {
-    sheet.seal();
-  } */
 };
