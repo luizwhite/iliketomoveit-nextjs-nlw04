@@ -4,7 +4,8 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
 `;
-export const Content = styled.div`
+
+export const Content = styled.div<{ url: string }>`
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 2rem 3rem;
@@ -21,7 +22,7 @@ export const Content = styled.div`
     width: 400px;
     margin: 0 auto;
 
-    background: url('http://localhost:3000/icons/levelup.svg') no-repeat
+    background: url(${({ url }) => url}/icons/levelup.svg) no-repeat
       center/contain;
     font-size: 20rem;
     font-weight: 600;

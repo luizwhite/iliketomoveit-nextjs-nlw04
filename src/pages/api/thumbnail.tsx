@@ -56,6 +56,7 @@ export default async (
         <>
           <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
             <ThumbnailComponent
+              url={`${process.env.NGROK_TEST_URL || process.env.NEXTAUTH_URL}`}
               {...{ level, challengesCompleted, currentXP }}
             />
             <GlobalStyle />

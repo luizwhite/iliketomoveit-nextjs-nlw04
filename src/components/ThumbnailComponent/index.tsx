@@ -4,15 +4,17 @@ interface ThumbComponentProps {
   level: string;
   challengesCompleted: string;
   currentXP: string;
+  url: string;
 }
 
 const ThumbnailComponent: React.FC<ThumbComponentProps> = ({
   level,
   challengesCompleted,
   currentXP,
+  url,
 }) => (
   <Container>
-    <Content>
+    <Content {...{ url }}>
       <div>
         <header>{level}</header>
         <strong>Avancei para o próximo level!</strong>
