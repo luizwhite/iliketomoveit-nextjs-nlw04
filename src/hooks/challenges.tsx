@@ -10,6 +10,7 @@ import {
 import axios from 'axios';
 // import Cookies from 'js-cookie';
 
+import { useTheme } from './theme';
 import ModalLevelUp from '../components/ModalLevelUp';
 
 import challenges from '../../challenges.json';
@@ -47,6 +48,7 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
   children,
   ...data
 }) => {
+  const [theme] = useTheme();
   const [twitterURL, setTwitterURL] = useState('');
   const [level, setLevel] = useState(data.level);
   const [currentXP, setCurrentXP] = useState(data.currentXP);
@@ -117,19 +119,11 @@ const ChallengesProvider: React.FC<ChallengesProviderProps> = ({
 
   const getThumbURIEncoded = useCallback(async () => {
     const { data: thumbURIEncoded } = await axios.get<string>(
-      `/api/thumbnail?share_to_twitter_URI=true&level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}`,
+      `/api/thumbnail?share_to_twitter_URI=true&level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}&theme=${theme}`,
     );
 
     setTwitterURL(`https://twitter.com/intent/tweet?url=${thumbURIEncoded}`);
-  }, [challengesCompleted, currentXP, level]);
-
-  // const shareToTwitter = useCallback(async () => {
-  //   const { data: thumbURIEncoded } = await axios.get<string>(
-  //     `/api/thumbnail?share_to_twitter_URI=true&level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}`,
-  //   );
-
-  //   router.push(`https://twitter.com/intent/tweet?url=${thumbURIEncoded}`);
-  // }, [challengesCompleted, currentXP, level, router]);
+  }, [challengesCompleted, currentXP, level, theme]);
 
   useEffect(() => {
     Notification.requestPermission();

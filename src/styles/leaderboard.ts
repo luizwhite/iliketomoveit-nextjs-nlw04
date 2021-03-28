@@ -9,12 +9,17 @@ export const Container = styled.div`
 
   table {
     text-align: left;
-    border-spacing: 3px 8px;
+    border-spacing: 3px 10px;
 
     caption {
       font-weight: 500;
       font-size: 2rem;
       text-align: left;
+    }
+
+    tbody tr {
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(${({ theme }) => theme.appColors.shadowRgb}, 0.6);
     }
 
     th,
@@ -26,7 +31,7 @@ export const Container = styled.div`
       padding: 10px 0;
       padding-right: 20px;
 
-      color: #666;
+      color: ${({ theme }) => theme.appColors.text};
       text-transform: uppercase;
       opacity: 0.5;
 
@@ -44,7 +49,7 @@ export const Container = styled.div`
       height: 96px;
 
       text-align: center;
-      background-color: #fff;
+      background-color: ${({ theme }) => theme.appColors.secondaryBg};
 
       &:first-child {
         padding: 0;
@@ -58,7 +63,7 @@ export const Container = styled.div`
       }
 
       &:not(:nth-child(2)) strong {
-        color: var(--blue);
+        color: ${({ theme }) => theme.appColors.primary};
       }
     }
   }
@@ -74,7 +79,7 @@ export const ProfileInfoContainer = styled.div`
 
     font-weight: 500;
     font-size: 1.25rem;
-    color: var(--title);
+    color: ${({ theme }) => theme.appColors.textStrong};
   }
 
   > img {

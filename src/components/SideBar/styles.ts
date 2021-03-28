@@ -13,8 +13,12 @@ export const Container = styled.aside`
   padding: 32px 0;
   width: 90px;
 
-  background-image: linear-gradient(180deg, #f2f2f2 0%, #ccc 120%);
-  filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.3));
+  background-image: ${({ theme }) =>
+    theme.name === 'dark'
+      ? `linear-gradient(180deg, ${theme.appColors.bg} 0%, ${theme.appColors.dark} 150%)`
+      : `linear-gradient(180deg, ${theme.appColors.bg} 0%, ${theme.appColors.dark} 500%)`};
+
+  box-shadow: 0 0 50px -10px ${({ theme }) => theme.appColors.specialShadow};
   z-index: 10;
 
   > div:first-child svg,
@@ -23,7 +27,7 @@ export const Container = styled.aside`
     height: auto;
 
     path {
-      fill: var(--blue);
+      fill: ${({ theme }) => theme.appColors.primary};
     }
   }
 
@@ -45,7 +49,7 @@ export const HoverBar = styled.div`
   height: 140%;
 
   border-radius: 16px;
-  background-color: var(--blue);
+  background-color: ${({ theme }) => theme.appColors.primary};
   clip-path: polygon(80% 0%, 100% 0%, 100% 100%, 80% 100%);
 `;
 
@@ -84,7 +88,7 @@ export const NavContainer = styled.div<{ $isHome?: boolean }>`
     }
   }
 
-  ${({ $isHome }) =>
+  ${({ $isHome, theme }) =>
     $isHome
       ? css`
           > button:first-child svg {
@@ -92,7 +96,7 @@ export const NavContainer = styled.div<{ $isHome?: boolean }>`
 
             g {
               opacity: 1;
-              stroke: var(--blue);
+              stroke: ${theme.appColors.primary};
             }
           }
 
@@ -106,7 +110,7 @@ export const NavContainer = styled.div<{ $isHome?: boolean }>`
 
             g {
               opacity: 1;
-              stroke: var(--blue);
+              stroke: ${theme.appColors.primary};
             }
           }
 

@@ -80,41 +80,60 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ session }) => {
             </thead>
             <tbody>
               {!loading ? (
-                users.map(
-                  (
-                    {
-                      name,
-                      username,
-                      challengesCompleted,
-                      currentXP,
-                      image,
-                      level,
-                    },
-                    index,
-                  ) => (
-                    <tr key={username}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <ProfileInfoContainer>
-                          <img src={image} alt={name} />
-                          <div>
-                            <strong>{name}</strong>
+                <>
+                  {users.map(
+                    (
+                      {
+                        name,
+                        username,
+                        challengesCompleted,
+                        currentXP,
+                        image,
+                        level,
+                      },
+                      index,
+                    ) => (
+                      <tr key={username}>
+                        <td>{index + 1}</td>
+                        <td>
+                          <ProfileInfoContainer>
+                            <img src={image} alt={name} />
                             <div>
-                              <img src="icons/level.svg" alt="Level" />
-                              {`Level ${level}`}
+                              <strong>{name}</strong>
+                              <div>
+                                <img src="icons/level.svg" alt="Level" />
+                                {`Level ${level}`}
+                              </div>
                             </div>
-                          </div>
-                        </ProfileInfoContainer>
-                      </td>
-                      <td>
-                        <strong>{challengesCompleted}</strong> completados
-                      </td>
-                      <td>
-                        <strong>{currentXP}</strong> xp
-                      </td>
-                    </tr>
-                  ),
-                )
+                          </ProfileInfoContainer>
+                        </td>
+                        <td>
+                          <strong>{challengesCompleted}</strong> completados
+                        </td>
+                        <td>
+                          <strong>{currentXP}</strong> xp
+                        </td>
+                      </tr>
+                    ),
+                  )}
+                  {[...Array(7 - (users.length > 7 ? 7 : users.length))].map(
+                    (_value, index) => (
+                      <tr key={`dumb_${index + 1}`}>
+                        <td />
+                        <td>
+                          <ProfileInfoContainer>
+                            <div>
+                              <strong />
+                              <div />
+                            </div>
+                          </ProfileInfoContainer>
+                        </td>
+                        <td />
+                        <td />
+                      </tr>
+                    ),
+                  )}
+                </>
               ) : (
                 <tr key="key">
                   <td />
@@ -129,23 +148,6 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ session }) => {
                   <td />
                   <td />
                 </tr>
-              )}
-              {[...Array(7 - (users.length > 7 ? 7 : users.length))].map(
-                (_value, index) => (
-                  <tr key={`dumb_${index + 1}`}>
-                    <td />
-                    <td>
-                      <ProfileInfoContainer>
-                        <div>
-                          <strong />
-                          <div />
-                        </div>
-                      </ProfileInfoContainer>
-                    </td>
-                    <td />
-                    <td />
-                  </tr>
-                ),
               )}
             </tbody>
           </table>

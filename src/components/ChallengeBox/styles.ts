@@ -9,10 +9,10 @@ export const Container = styled.div`
 
   height: 100%;
 
-  background-color: var(--white);
+  background-color: ${({ theme }) => theme.appColors.secondaryBg};
   border-radius: 5px;
 
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 30px rgba(${({ theme }) => theme.appColors.shadowRgb}, 0.4);
   text-align: center;
 `;
 
@@ -53,9 +53,12 @@ export const ChallengeActiveContainer = styled.div`
 
   header {
     padding: 0 2rem 1.5rem;
-    border-bottom: 1px solid var(--gray-line);
+    border-bottom: 1px solid ${({ theme }) => theme.appColors.border};
 
-    color: var(--blue);
+    color: ${({ theme }) =>
+      theme.name === 'dark'
+        ? theme.appColors.specialText
+        : theme.appColors.primary};
     font-weight: 600;
     font-size: 1.25rem;
   }
@@ -73,7 +76,7 @@ export const ChallengeActiveContainer = styled.div`
 
       font-size: 2rem;
       font-weight: 600;
-      color: var(--title);
+      color: ${({ theme }) => theme.appColors.textStrong};
     }
 
     p {
@@ -94,7 +97,7 @@ export const ChallengeActiveContainer = styled.div`
       height: 3rem;
       border-radius: 5px;
 
-      color: var(--white);
+      color: ${({ theme }) => theme.appColors.specialText};
       font-size: 1rem;
       font-weight: 600;
 
@@ -108,9 +111,9 @@ export const ChallengeActiveContainer = styled.div`
 `;
 
 export const FailedButton = styled.button`
-  background-color: var(--red);
+  background-color: ${({ theme }) => theme.colors['red-100']};
 `;
 
 export const SucceededButton = styled.button`
-  background-color: var(--green);
+  background-color: ${({ theme }) => theme.colors.green};
 `;

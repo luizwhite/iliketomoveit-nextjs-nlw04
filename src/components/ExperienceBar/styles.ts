@@ -24,7 +24,7 @@ export const Header = styled.header`
     margin: 0 1.5rem;
 
     border-radius: 4px;
-    background-color: var(--gray-line);
+    background-color: ${({ theme }) => theme.appColors.lightBg};
 
     position: relative;
   }
@@ -35,7 +35,7 @@ export const ProgressBar = styled.div<ProgressBarProps>`
   height: 4px;
 
   border-radius: 4px;
-  background-color: var(--green);
+  background-color: ${({ theme }) => theme.colors.green};
 `;
 
 export const CurrentExperience = styled.span<CurrentExperienceProps>`

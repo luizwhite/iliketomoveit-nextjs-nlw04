@@ -11,7 +11,7 @@ export const Content = styled.div`
   width: 1200px;
   height: 628px;
 
-  background-color: var(--white);
+  background-color: ${({ theme }) => theme.appColors.secondaryBg};
 
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
   text-align: center;
@@ -25,19 +25,22 @@ export const Content = styled.div`
       center/contain;
     font-size: 20rem;
     font-weight: 600;
-    color: var(--blue);
+    color: ${({ theme }) =>
+      theme.name === 'dark'
+        ? theme.appColors.special
+        : theme.appColors.primary};
   }
 
   strong {
     font-size: 3.25rem;
-    color: var(--title);
+    color: ${({ theme }) => theme.appColors.textStrong};
     font-weight: 600;
   }
 
   p {
     margin-top: 0.25rem;
     font-size: 1.25rem;
-    color: var(--text-default);
+    color: ${({ theme }) => theme.appColors.textSoft};
   }
 `;
 
@@ -62,7 +65,7 @@ export const Info = styled.div`
       > span {
         margin-bottom: 0.625rem;
 
-        color: var(--text-default);
+        color: ${({ theme }) => theme.appColors.textSoft};
         font-size: 24px;
         font-weight: bold;
         text-transform: uppercase;
@@ -74,13 +77,16 @@ export const Info = styled.div`
         font-weight: 500;
 
         > span {
-          color: var(--blue);
+          color: ${({ theme }) =>
+            theme.name === 'dark'
+              ? theme.appColors.special
+              : theme.appColors.primary};
         }
       }
 
       &:not(:last-child) {
         padding-bottom: 2rem;
-        border-bottom: 1px solid var(--gray-line);
+        border-bottom: 1px solid ${({ theme }) => theme.appColors.border};
       }
     }
   }
@@ -89,7 +95,10 @@ export const Info = styled.div`
     width: 300px;
 
     path {
-      fill: var(--blue);
+      fill: ${({ theme }) =>
+        theme.name === 'dark'
+          ? theme.appColors.special
+          : theme.appColors.primary};
 
       &:nth-child(3),
       &:nth-child(6),

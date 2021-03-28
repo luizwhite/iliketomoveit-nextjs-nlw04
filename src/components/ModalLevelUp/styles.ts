@@ -17,7 +17,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 400px;
 
-  background-color: var(--white);
+  background-color: ${({ theme }) => theme.appColors.secondaryBg};
 
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
   text-align: center;
@@ -28,19 +28,22 @@ export const Container = styled.div`
 
     font-size: 8.75rem;
     font-weight: 600;
-    color: var(--blue);
+    color: ${({ theme }) =>
+      theme.name === 'dark'
+        ? theme.appColors.special
+        : theme.appColors.primary};
   }
 
   strong {
     font-size: 2.25rem;
-    color: var(--title);
+    color: ${({ theme }) => theme.appColors.textStrong};
     font-weight: 600;
   }
 
   p {
     margin-top: 0.25rem;
     font-size: 1.25rem;
-    color: var(--text-default);
+    color: ${({ theme }) => theme.appColors.textSoft};
   }
 
   button {
@@ -61,10 +64,10 @@ export const TwitterAnchor = styled.a`
   height: 80px;
   width: 100%;
 
-  border-top: 1px solid var(--gray-line);
+  border-top: 1px solid ${({ theme }) => theme.appColors.border};
   background-color: #f5fcff;
 
-  color: var(--blue-twitter);
+  color: ${({ theme }) => theme.colors['blue-twitter']};
   font-weight: 600;
   font-size: 18px;
 

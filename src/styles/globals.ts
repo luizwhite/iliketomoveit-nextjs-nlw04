@@ -1,42 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
-  /* :root {
-    --bg-default: #f2f3f5;
-    --text-default: #666;
-    --white: #fff;
-    --gray-line: #dcdde0;
-    --text-highlight: #b3b9ff;
-    --title: #2e384d;
-    --red: #e83f5b;
-    --red-dark: #b83148;
-    --green: #4cd62b;
-    --blue: #5965e0;
-    --blue-dark: #4953b8;
-    --blue-twitter: #2aa9e0;
-  } */
-  :root {
-    --bg-default: #f2f3f5;
-    --text-default: #666;
-    --white: #fff;
-    --gray-line: #dcdde0;
-    --text-highlight: #b3b9ff;
-    --title: #2e384d;
-    --red: #e83f5b;
-    --red-dark: #b83148;
-    --green: #4cd62b;
-    --blue-light: #f7e1d4;
-    --blue: #e08a59;
-    --blue-dark: #b16d46;
-    --blue-twitter: #2aa9e0;
-  }
-
   * {
     margin: 0;
     padding: 0;
-    outline: 0;
     box-sizing: border-box;
-    outline: 0;
   }
 
   @media (max-width: 1080px) {
@@ -46,8 +14,8 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: var(--bg-default);
-    color: var(--text-default);
+    background-color: ${({ theme }) => theme.appColors.bg};
+    color: ${({ theme }) => theme.appColors.textSoft};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -57,6 +25,7 @@ export default createGlobalStyle`
   button,
   textarea {
     font: 400 1rem 'Inter', sans-serif;
+    outline: none;
   }
 
   h1,
@@ -74,7 +43,7 @@ export default createGlobalStyle`
     border: none;
   }
 
-  li {
+  ul {
     list-style: none;
   }
 

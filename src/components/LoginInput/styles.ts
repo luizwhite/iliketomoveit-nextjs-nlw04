@@ -17,11 +17,11 @@ export const Container = styled.div`
     border: none;
     background-color: unset;
 
-    color: var(--white);
+    color: #fff;
     line-height: 24px;
 
     &::placeholder {
-      color: var(--blue-light);
+      color: #fbf2ee;
     }
   }
 `;
@@ -29,13 +29,13 @@ export const Container = styled.div`
 export const InputContainer = styled.div<InputContainerProps>`
   padding: 18px;
 
-  background-image: linear-gradient(to right, #ba734a, var(--blue));
+  background-image: linear-gradient(to right, #ba734a, #e08a59);
   background-clip: padding-box;
 
   border-radius: 6px 0 0 6px;
   box-shadow: ${({ $isFocused, $isFilled }) =>
     $isFocused && !$isFilled
-      ? 'inset 0px 0px 0px 2px var(--blue-dark)'
+      ? `inset 0px 0px 0px 2px rgba(108,82,72, 0.3)`
       : 'none'};
 
   cursor: text;

@@ -1,3 +1,8 @@
+<p align="center">
+    <img alt="iliketomoveit" title="iliketomoveit" src=".github/iliketomoveit-example.png" />
+</p>
+
+# I&#46;like&#46;to&#46;move&#46;it
 ## 📖 Sobre
 ILikeToMoveIt é uma aplicação que possui uma simples interface de desafios, a qual traz a técnica de pomodoro para um painel interativo. À medida em que os desafios ― exercícios físicos ou de relaxamento ― são completados, fornecem experiência em um sistema de level-up simplificado.
 
@@ -13,7 +18,7 @@ Além do conteúdo passado na semana (move.it 1.0), este projeto foi incrementad
 
 → Mais estilização nos botões e no Modal
 
-→ Login OAuth2 no Github utilizando [**NextAuth.js**](https://next-auth.js.org)
+→ Login OAuth2 no Github e Logout utilizando [**NextAuth.js**](https://next-auth.js.org)
 
 → Persistência dos dados no [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
@@ -22,6 +27,8 @@ Além do conteúdo passado na semana (move.it 1.0), este projeto foi incrementad
 → Leaderboard
 
 → Compartilhar level no Twitter (thumb generator)
+
+→ Theme Toggler - light/dark
 
 → Responsividade - 🚧 em desenvolvimento 🚧
 
@@ -53,7 +60,7 @@ Vercel: [`https://iliketomoveit-two.vercel.app`](https://iliketomoveit-two.verce
 # Abra um terminal e clone este repositório
 $ git clone https://github.com/luizwhite/iliketomoveit-nextjs-nlw04.git
 
-# Crie um arquivo .env.local e inclua as váriáveis de ambiente
+# Crie um arquivo .env.local e um arquivo .env.development e inclua as váriáveis de ambiente
 # baseado no arquivo .env.example na raiz do projeto
 
 # Instale as dependências
@@ -66,3 +73,5 @@ $ yarn start
 
 ### Bugs - NextAuth
 Conforme essa [issue](https://github.com/nextauthjs/next-auth/issues/829), em produção (build) o NextAuth.js cria uma collection `userUsers` ao invés de `users`, então se estiver em desenvolvimento local utilize a collection `users` para persistir os dados (em `./src/pages/api/[...nextauth].js` e na rota api `challenges.ts`, é onde encontrará o nome da collection)
+
+Um _workaround_ foi incluir uma env variable **NEXTAUTH_COLLECTION** ao arquivo `.env.development` para execuções em desenvolvimento (confira o arquivo `.env.example`)

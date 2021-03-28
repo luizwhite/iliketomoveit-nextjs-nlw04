@@ -11,7 +11,7 @@ export const Container = styled.div`
 
   font-family: 'Rajdhani';
   font-weight: 600;
-  color: var(--title);
+  color: ${({ theme }) => theme.appColors.textStrong};
 
   > span {
     font-size: 6.25rem;
@@ -25,9 +25,9 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-evenly;
 
-    background-color: var(--white);
+    background-color: ${({ theme }) => theme.appColors.secondaryBg};
     border-radius: 5px;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 15px rgba(${({ theme }) => theme.appColors.shadowRgb}, 0.4);
 
     font-size: 8.5rem;
     text-align: center;
@@ -36,11 +36,11 @@ export const Container = styled.div`
       flex: 1;
 
       &:first-child {
-        border-right: 1px solid #f0f1f3;
+        border-right: 1px solid ${({ theme }) => theme.appColors.border};
       }
 
       &:last-child {
-        border-left: 1px solid #f0f1f3;
+        border-left: 1px solid ${({ theme }) => theme.appColors.border};
       }
     }
   }
@@ -56,7 +56,7 @@ export const CountdownButton = styled.button<CountdownButtonProps>`
   height: 5rem;
   border-radius: 5px;
 
-  color: var(--white);
+  color: ${({ theme }) => theme.appColors.specialText};
   font-size: 1.25rem;
   font-weight: 600;
 
@@ -70,10 +70,10 @@ export const CountdownButton = styled.button<CountdownButtonProps>`
 
   &[disabled] {
     border-top: 5px solid transparent;
-    border-bottom: 5px solid var(--green);
+    border-bottom: 5px solid ${({ theme }) => theme.colors.green};
 
-    background-color: var(--white);
-    color: var(--text-default);
+    background-color: ${({ theme }) => theme.appColors.secondaryBg};
+    color: ${({ theme }) => theme.appColors.textSoft};
     cursor: not-allowed;
   }
 
@@ -81,30 +81,37 @@ export const CountdownButton = styled.button<CountdownButtonProps>`
     styledCountdown &&
     css`
       &:hover {
-        color: var(--white);
+        color: ${({ theme }) => theme.appColors.specialText};
       }
 
       ${({ countdownStyle, timeLeftPercent }: CountdownButtonProps) =>
         countdownStyle === 'start'
           ? css`
-              background-color: var(--blue);
-              color: var(--white);
+              background-color: ${({ theme }) => theme.appColors.specialBg};
+              color: ${({ theme }) => theme.appColors.specialText};
 
               &:hover {
-                background-color: var(--blue-dark);
+                background-color: ${({ theme }) => theme.appColors.dark};
               }
             `
           : css`
               padding: 5px 0;
 
-              background-color: var(--white);
-              color: var(--text-default);
+              box-shadow: 0 0 30px
+                rgba(${({ theme }) => theme.appColors.shadowRgb}, 0.4);
+              background-color: ${({ theme }) => theme.appColors.light};
+              color: ${({ theme }) => theme.appColors.dark};
+
+              svg path {
+                fill: ${({ theme }) => theme.appColors.dark};
+              }
 
               &:hover {
-                background-color: var(--red);
+                box-shadow: none;
+                background-color: ${({ theme }) => theme.colors['red-100']};
 
                 svg path {
-                  fill: var(--white);
+                  fill: ${({ theme }) => theme.appColors.specialText};
                 }
               }
 
@@ -112,7 +119,7 @@ export const CountdownButton = styled.button<CountdownButtonProps>`
                 position: absolute;
 
                 width: 100%;
-                background-color: var(--gray-line);
+                background-color: ${({ theme }) => theme.appColors.dark};
                 height: 5px;
                 bottom: 0;
                 right: 0;
@@ -129,7 +136,7 @@ export const CountdownButton = styled.button<CountdownButtonProps>`
                 left: 0;
 
                 width: ${timeLeftPercent}%;
-                background-color: var(--green);
+                background-color: ${({ theme }) => theme.colors.green};
 
                 transition: width 1s linear;
 

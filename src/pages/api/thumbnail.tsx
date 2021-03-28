@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import ReactDOMServer from 'react-dom/server';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet, ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from '../../theme';
 
 import { getScreenshot } from './_lib/chromium';
 import getMetaTemplate from './_lib/thumbMetaTemplate';
@@ -28,6 +29,7 @@ export default async (
       level,
       challengesCompleted,
       currentXP,
+      theme,
       image,
       layout,
       share_to_twitter_URI,
@@ -38,7 +40,7 @@ export default async (
         encodeURIComponent(
           `${process.env.NGROK_TEST_URL || process.env.NEXTAUTH_URL}/api/${
             process.env.THUMBNAIL_NO_EXT || 'thumbnail.png'
-          }?level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}`,
+          }?level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}&theme=${theme}`,
         ),
       );
 
@@ -46,13 +48,18 @@ export default async (
     if (!challengesCompleted)
       throw new Error('Challenges completed is required');
     if (!currentXP) throw new Error('Current XP is required');
+    if (!theme) throw new Error('Theme is required');
 
     /* const html = getThumbnailTemplate(level, challengesCompleted, currentXP); */
     let html = ReactDOMServer.renderToString(
       sheet.collectStyles(
         <>
-          <ThumbnailComponent {...{ level, challengesCompleted, currentXP }} />
-          <GlobalStyle />
+          <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+            <ThumbnailComponent
+              {...{ level, challengesCompleted, currentXP }}
+            />
+            <GlobalStyle />
+          </ThemeProvider>
         </>,
       ),
     );
@@ -75,7 +82,12 @@ export default async (
       return res.end(file);
     }
 
-    const htmlMeta = getMetaTemplate(level, challengesCompleted, currentXP);
+    const htmlMeta = getMetaTemplate(
+      level,
+      challengesCompleted,
+      currentXP,
+      theme,
+    );
 
     res.setHeader('Content-Type', 'text/html');
     return res.end(htmlMeta);

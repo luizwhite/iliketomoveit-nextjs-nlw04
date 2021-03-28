@@ -4,7 +4,8 @@ export const Container = styled.div`
   height: 100vh;
   position: relative;
 
-  background: var(--blue) url('icons/bg_image.svg') left no-repeat;
+  background: ${({ theme }) => theme.appColors.primary}
+    url('icons/bg_image.svg') left no-repeat;
 `;
 
 export const Content = styled.div`
@@ -15,7 +16,7 @@ export const Content = styled.div`
   position: relative;
   top: 24%;
   max-height: 76%;
-  color: var(--white);
+  color: ${({ theme }) => theme.appColors.specialText};
 
   overflow: hidden;
 

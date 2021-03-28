@@ -2,12 +2,13 @@ export default function getMetaTemplate(
   level: string,
   challengesCompleted: string,
   currentXP: string,
+  theme: string,
 ): string {
   const metaImageContent = `${
     process.env.NGROK_TEST_URL || process.env.NEXTAUTH_URL
   }/api/${
     process.env.THUMBNAIL_NO_EXT || 'thumbnail.png'
-  }?image=true&level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}`;
+  }?image=true&level=${level}&challengesCompleted=${challengesCompleted}&currentXP=${currentXP}&theme=${theme}`;
 
   const iconHref = `${
     process.env.NGROK_TEST_URL || process.env.NEXTAUTH_URL
